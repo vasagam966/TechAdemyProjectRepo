@@ -1,39 +1,40 @@
 // @ts-check
-import { defineConfig, Page } from '@playwright/test';
+import { defineConfig } from '@playwright/test';
 
-const config = defineConfig({
+export default defineConfig({
   testDir: './tests',
   timeout: 40 * 1000,
   expect: {
     timeout: 40 * 1000,
   },
 
-  reporter: 'html',
+  // 🔹 Updated reporter — Allure added here
+  reporter: [
+    ['list'],
+    ['html'],
+    ['allure-playwright']
+  ],
 
   use: {
     browserName: 'chromium',
     headless: false,
+    screenshot: 'only-on-failure',
+    video: 'retain-on-failure',
+    trace: 'retain-on-failure',
 
-    trace: 'on-failure',
-    screenshot: 'on',
-
-    // Allow real browser window to be fully maximized
     viewport: null,
 
     launchOptions: {
       args: [
-        '--start-maximized',              // Maximize browser
-        '--force-device-scale-factor=1'   // Prevent auto-zooming by OS DPI
+        '--start-maximized',
+        '--force-device-scale-factor=1'
       ]
     },
 
-    // Automatically apply 70% zoom to every page
     onPageCreated: async (page) => {
       await page.evaluate(() => {
-        document.body.style.zoom = "0.7";  // Default zoom: 70%
+        document.body.style.zoom = "0.7";
       });
     }
   },
 });
-
-export default config;
