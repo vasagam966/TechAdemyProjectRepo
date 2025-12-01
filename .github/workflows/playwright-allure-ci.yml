@@ -1,4 +1,4 @@
-name: Playwright Tests HTML Report
+name: Playwright Tests HTML + Allure Report
 
 on:
   push:
@@ -25,11 +25,12 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
 
-      - name: Run Playwright tests with HTML report
+      - name: Run Playwright tests with HTML & Allure report
         run: npx playwright test --reporter=html --output=playwright-report
         continue-on-error: true
 
       - name: Show workspace structure
+        if: always()
         run: |
           echo "--- Workspace Tree Below ---"
           ls -R .
@@ -40,3 +41,10 @@ jobs:
         with:
           name: playwright-html-report
           path: "**/playwright-report/**"
+
+      - name: Upload Allure Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results
+          path: "**/allure-results/**"
