@@ -14,7 +14,7 @@ class AdminDashBoard {
         this.virtualClassroomModuleLink = page.getByRole('heading', { level: 3, name: 'Virtual Classroom' });
         this.aiAssessmentsModuleLink = page.getByRole('heading', { level: 3, name: 'AI Assessments' });
         this.certificationModuleLink = page.getByRole('heading', { level: 3, name: 'Certifications' });
-        this.profileButton =this.page.getByText('QA', { exact: true });
+        this.profileButton =this.page.getByText('Admin', { exact: true });
         this.logoutButton =this.page.getByText('Log out', { exact: true });
     }
     async clickLearnerhubModule() {

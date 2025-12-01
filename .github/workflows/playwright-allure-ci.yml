@@ -1,4 +1,4 @@
-name: Playwright Tests with Allure
+name: Playwright Tests HTML Report
 
 on:
   push:
@@ -25,14 +25,11 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
 
-      - name: Run Playwright tests
-        run: npx playwright test
+      - name: Run Playwright tests with HTML report
+        run: npx playwright test --reporter=html
 
-      - name: Debug Allure results location
-        run: ls -R .
-
-      - name: Upload Allure Results Artifact
+      - name: Archive Playwright HTML Report
         uses: actions/upload-artifact@v4
         with:
-          name: allure-results
-          path: "**/allure-results/**"
+          name: playwright-html-report
+          path: playwright-report

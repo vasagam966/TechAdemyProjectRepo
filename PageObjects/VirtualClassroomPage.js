@@ -54,7 +54,7 @@ class VirtualClassroomPage{
     {
     const learnersButton = this.page.locator(
         `//h3[text()='${batchName}']/ancestor::div[contains(@class,'rounded-lg')]//button[normalize-space()='Learners']`
-    );
+    ).first();
     await learnersButton.click();
 }
 async clickbatchesTab(){
