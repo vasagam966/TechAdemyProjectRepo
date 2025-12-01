@@ -1,3 +1,4 @@
+import { faker } from '@faker-js/faker';
 class UserManagementPage {
     constructor(page) {
         this.page = page;
@@ -16,7 +17,15 @@ class UserManagementPage {
         this.passwordTextbox = this.page.locator('#password');
         this.createUserAccountButton = this.page.getByRole('button', { name: 'Create User Account' });
         this.doneButton = this.page.getByRole('button', { name: 'Done' });
-// Initialize locators and elements specific to the User Management Page here
+        this.createJobRoleButton = this.page.getByRole('button', { name: 'Create Job Role' });
+        this.roleNameTextBox = this.page.getByRole('textbox', { name: 'Role Name' });
+        this.roleDescriptionBox = this.page.getByRole('textbox', { name: 'Description' });
+        this.departmentTextBox = this.page.getByRole('textbox', { name: 'Department' });
+        this.createJobrolebuttonInDialog= this.page.locator("//div[@role='dialog']//button[text()='Create Job Role']");
+        this.selectJobRoleDropdown =this.page.getByText('Select job role', { exact: true });
+        this.assignJobRoleButton = this.page.locator("//button[normalize-space()='Assign']");
+        this.searchUsersTextBox = this.page.getByRole('textbox', { name: 'Search by name, email, or department...' });
+        this.jobRoleDropdown = this.page.locator("//button[@role='combobox']");
     }
     async clickUsersTab() {
         await this.usersTab.click();
@@ -64,5 +73,23 @@ class UserManagementPage {
     async clickDone() {
         await this.doneButton.click();
     }
+    async createJobRole(jobrole){
+        await this.jobRoleAssignmentTab.click();
+        await this.createJobRoleButton.click();
+        await this.roleNameTextBox.fill(jobrole);
+        await this.roleDescriptionBox.fill("des");
+        await this.departmentTextBox.fill("Engineering");
+        await this.createJobrolebuttonInDialog.click();
+
+    }
+    async assignJobRoleToUser(user,jobrole){
+        await this.searchUsersTextBox.click();
+        await this.searchUsersTextBox.fill(user);
+        await this.jobRoleDropdown.click();
+        await this.page.locator('[role="option"]',{hasText: jobrole}).click();
+        await this.assignJobRoleButton.click();
+
+    }
+
 }
 module.exports = { UserManagementPage };

@@ -49,10 +49,12 @@ test('Test onboarding Instructor',async({page})=>{
     await usermanagement.clickCreateUserAccount();
     await usermanagement.clickDone();
 });
-test('Test Onboarding Learner',async({page})=>{
+test('Test Onboarding Learner,Create a job role and assign Job role to the Learner',async({page})=>{
     const poManager=new POManager(page);
     const adminDashBoard=poManager.getAdminDashBoard(); 
     const usermanagement= poManager.getUserManagementPage();
+    const programmanagerPage = poManager.getProgramManagerPage();
+    const learnerDashBoard = poManager.getLearnerdashBoard();
     await adminDashBoard.clickUserManagementModule();
     await usermanagement.clickOnboardingTab();
     const email=faker.internet.email();
@@ -66,4 +68,16 @@ test('Test Onboarding Learner',async({page})=>{
     await usermanagement.enterPassword(testdata.password);
     await usermanagement.clickCreateUserAccount();
     await usermanagement.clickDone();
+    const jobrole = `.PlaywrightJob${faker.datatype.number({ min: 100, max: 999 })}`;
+    await usermanagement.createJobRole(jobrole);
+    await usermanagement.assignJobRoleToUser(email,jobrole);
+    await  programmanagerPage.clickBackButton();
+    await adminDashBoard.logoutAsAdmin();
+    const signinPage=poManager.getSigninPage();
+    await signinPage.enterEmail(email);
+    await signinPage.enterPassword(testdata.password);
+    await signinPage.clickSignin();
+    await learnerDashBoard.clickRolesTab();
+    await page.waitForTimeout(2000);
+    await learnerDashBoard.verifyJobRoleCardVisible(jobrole);
 });
