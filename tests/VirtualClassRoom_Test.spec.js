@@ -9,7 +9,7 @@ test.beforeEach(async({page})=>{
     const poManager=new POManager(page);
     const signinPage=poManager.getSigninPage();
     await signinPage.navigate(testdata.url);
-    await signinPage.enterEmail(testdata.adminusername);
+    await signinPage.enterEmail(testdata.adminusername2);
     await signinPage.enterPassword(testdata.password);
     await signinPage.clickSignin();
     await expect(page).toHaveURL("https://skill-assist.ai/QapitolQA/dashboard");
