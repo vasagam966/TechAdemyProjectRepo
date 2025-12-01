@@ -24,7 +24,7 @@ test('Test Creating Batch and session In Virtual Classroom and enroll the batch'
 
     await adminDashBoard.clickVirtualClassroomModule();
     await virtualClassroomPage.clickCreateBatchButton();
-    const BatchTitle = `PlaywrightBatch${faker.number.int({ min: 100, max: 999 })}`;
+    const BatchTitle = `PlaywrightBatch${fakerdatatype.number({ min: 100, max: 999 })}`;
     console.log(BatchTitle);
     await virtualClassroomPage.enterBatchTitle(BatchTitle);
     await  virtualClassroomPage.enterBatchDescription("des");

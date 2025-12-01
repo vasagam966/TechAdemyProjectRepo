@@ -21,9 +21,9 @@ test('Test Onboarding Admin',async({page})=>{
     await usermanagement.clickOnboardingTab();
     const email=faker.internet.email();
     await usermanagement.enterEmail(email);
-    const firstName=faker.person.firstName();
+    const firstName = faker.name.firstName();
     await usermanagement.enterFirstName(firstName);
-    const lastName=faker.person.lastName();
+   const lastName = faker.name.lastName();
     await usermanagement.enterLastName(lastName);
     await usermanagement.selectRole(testdata.adminrole);
     await usermanagement.selectDepartment('Engineering');
@@ -39,9 +39,9 @@ test('Test onboarding Instructor',async({page})=>{
     await usermanagement.clickOnboardingTab();
     const email=faker.internet.email();
     await usermanagement.enterEmail(email);
-    const firstName=faker.person.firstName();
+    const firstName = faker.name.firstName();
     await usermanagement.enterFirstName(firstName);
-    const lastName=faker.person.lastName();
+    const lastName = faker.name.lastName();
     await usermanagement.enterLastName(lastName); 
     await usermanagement.selectRole(testdata.instructorrole);
     await usermanagement.selectDepartment('Engineering');
@@ -57,9 +57,9 @@ test('Test Onboarding Learner',async({page})=>{
     await usermanagement.clickOnboardingTab();
     const email=faker.internet.email();
     await usermanagement.enterEmail(email);
-    const firstName=faker.person.firstName();
+    const firstName=faker.name.firstName();
     await usermanagement.enterFirstName(firstName);
-    const lastName=faker.person.lastName();
+    const lastName = faker.name.lastName();
     await usermanagement.enterLastName(lastName); 
     await usermanagement.selectRole(testdata.learnerrole);
     await usermanagement.selectDepartment('Engineering');

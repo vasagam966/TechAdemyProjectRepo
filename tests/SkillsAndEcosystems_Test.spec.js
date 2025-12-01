@@ -19,13 +19,13 @@ test('Create category and map skill to category',async({page})=>{
     const skillsAndEcosystemsPage= poManager.getSkillsAndEcosystemsPage();
     await adminDashBoard.clickSkillsAndEcosystemsModule();
     await skillsAndEcosystemsPage.clickManageCategoriesTab();
-    const categoryName = `PlaywrightAutomation${faker.number.int({ min: 100, max: 999 })}`;
+    const categoryName = `PlaywrightAutomation${faker.datatype.number({ min: 100, max: 999 })}`;
     await skillsAndEcosystemsPage.enterCategoryName(categoryName);
     const categoryDescription = faker.lorem.sentence();
     await skillsAndEcosystemsPage.enterCategoryDescription(categoryDescription);
     await skillsAndEcosystemsPage.clickCreateCategory();
     await skillsAndEcosystemsPage.clickManageSkillsTab();
-    const skillName = `PlaywrightSkill${faker.number.int({ min: 100, max: 999 })}`;
+    const skillName = `PlaywrightSkill${faker.datatype.number({ min: 100, max: 999 })}`;
     await skillsAndEcosystemsPage.enterSkillName(skillName);
     const skillDescription = faker.lorem.sentence();
     await skillsAndEcosystemsPage.enterDescription(skillDescription);

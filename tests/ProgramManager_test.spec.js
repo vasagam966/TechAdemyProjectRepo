@@ -23,7 +23,7 @@ let adminDashBoard=poManager.getAdminDashBoard();
 let programmanagerPage= poManager.getProgramManagerPage();
 let enrollmentmanagerPage=poManager.getenrollmentManagementPage()
 adminDashBoard.clickProgramManagerModule();
-const programTitleTitle = `PlaywrightProgram${faker.number.int({ min: 100, max: 999 })}`;
+const programTitleTitle = `PlaywrightProgram${faker.datatype.number({ min: 100, max: 999 })}`;
 await programmanagerPage.clickCreateProgramButton();
 await programmanagerPage.enterProgramTitle(programTitleTitle);
 await programmanagerPage.enterProgramStartDate(programmanagerPage.getStartDate());

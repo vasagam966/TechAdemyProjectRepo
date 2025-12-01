@@ -19,7 +19,7 @@ test('Create and publish learning path',async({page})=>{
     const learningPathPage= poManager.getLearningPathPage();
     await adminDashBoard.clickLearningPathsModule();
     await learningPathPage.clickCreatePathTab();
-    const pathTitle = `LearningPath${faker.number.int({ min: 100, max: 999 })}`;
+    const pathTitle = `LearningPath${faker.datatype.number({ min: 100, max: 999 })}`;
     await learningPathPage.clickCreatePathTab();
     await learningPathPage.enterTitle(pathTitle);
     const pathDescription = faker.lorem.sentence(); 
