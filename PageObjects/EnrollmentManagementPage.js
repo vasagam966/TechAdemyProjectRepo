@@ -27,7 +27,8 @@ class EnrollmentManagerPage{
         await this.enrolllearnerToProgrambutton.click();
     }
     async searchUsers(userEmail){
-        await this.searchUsertextBox.fill(userEmail);
+        await this.page.waitForTimeout(2000);
+        await this.searchUsertextBox.pressSequentially(userEmail);
     }
     async clickCheckboxforuser(){
         await this.checkbox.click();

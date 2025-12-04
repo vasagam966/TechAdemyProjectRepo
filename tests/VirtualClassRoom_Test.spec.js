@@ -2,7 +2,8 @@ const {test,expect} = require('@playwright/test');
 const {POManager}=require('../PageObjects/POManager');
 import { faker } from '@faker-js/faker';
 const testdata=JSON.parse( JSON.stringify(require('../TestData/signInPageTestData.json')));
-
+const learner1 =faker.internet.email();
+const learner2 =faker.internet.email();
 
 
 test.beforeEach(async({page})=>{
@@ -13,6 +14,12 @@ test.beforeEach(async({page})=>{
     await signinPage.enterPassword(testdata.password);
     await signinPage.clickSignin();
     await expect(page).toHaveURL("https://skill-assist.ai/QapitolQA/dashboard");
+    const adminDashBoard=poManager.getAdminDashBoard();
+    const usermanagement= poManager.getUserManagementPage();
+    await adminDashBoard.clickUserManagementModule();
+    await usermanagement.createALearner(learner1);
+    await usermanagement.createALearner(learner2);
+
     //await page.waitForTimeout(5000);
 });
 test('Test Creating Batch and session In Virtual Classroom and enroll the batch',async({page})=>{
@@ -21,7 +28,7 @@ test('Test Creating Batch and session In Virtual Classroom and enroll the batch'
     const adminDashBoard=poManager.getAdminDashBoard();
     const virtualClassroomPage =poManager.getVirtualClassroomPage();
     let programmanagerPage= poManager.getProgramManagerPage();
-
+    await programmanagerPage.clickBackButton();
     await adminDashBoard.clickVirtualClassroomModule();
     await virtualClassroomPage.clickCreateBatchButton();
     const BatchTitle = `PlaywrightBatch${faker.datatype.number({ min: 100, max: 999 })}`;
@@ -32,11 +39,13 @@ test('Test Creating Batch and session In Virtual Classroom and enroll the batch'
     await virtualClassroomPage.enterEnddate(programmanagerPage.getEndDate());
     await virtualClassroomPage.clickCreateBatchButtonInDialogBox();
     await virtualClassroomPage.clickbatchesTab();
+    await page.waitForTimeout(5000);
     await virtualClassroomPage.clickLearnersButton(BatchTitle);
-    await virtualClassroomPage.searchusers(testdata.learneremail);
-    await virtualClassroomPage.clickaddUserButton(testdata.learneremail);
-    await virtualClassroomPage.searchusers(testdata.learneremail2);
-    await virtualClassroomPage.clickaddUserButton(testdata.learneremail2);
+    await virtualClassroomPage.searchusers(learner2);
+    await virtualClassroomPage.clickaddUserButton(learner2);
+    await page.waitForTimeout(3000);
+    await virtualClassroomPage.searchusers(learner1);
+    await virtualClassroomPage.clickaddUserButton(learner1);
     await virtualClassroomPage.closedialog();
     await page.waitForTimeout(5000);
     await virtualClassroomPage.clickCreateSessionButton();

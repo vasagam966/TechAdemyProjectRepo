@@ -23,7 +23,7 @@ class CoursesAndMappingHubPage{
         this.addAssessmentButton = this.page.getByRole('button', { name: 'Add Assessment' });
         this.saveCourseButton = this.page.getByRole('button', { name: 'Save Course' });
         this.publishCourseButton = this.page.getByRole('button', { name: 'Publish Course' });
-        this.searchCoursestextBox = this.page.getByRole('textbox', { name: 'Search content...' });
+        this.searchCoursestextBox = this.page.getByRole('textbox', { name: 'Search courses...' });
     }
     async clickCourseBuilderTab(){
        await this.courseBuilderTab.click();
@@ -42,7 +42,7 @@ class CoursesAndMappingHubPage{
     }
     async clickEditButtonForCourse(courseName) {
     const courseCard = this.page
-        .locator("//div[@class='rounded-lg border bg-card text-card-foreground shadow-sm overflow-hidden hover:shadow-lg transition-shadow']")
+        .locator("//div[@class='rounded-lg border bg-card text-card-foreground shadow-sm overflow-hidden hover:shadow-lg transition-shadow h-full flex flex-col']")
         .filter({ hasText: courseName });
 
     //await courseCard.waitFor({ state: 'visible', timeout: 30000 });

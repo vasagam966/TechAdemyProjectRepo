@@ -80,7 +80,7 @@ async clickAddBlockButton(){
 }
 async mapCourseToTheBlock(){
     await this.mapcontentIcon.click();
-    await this.page.getByText('Beginner’s course for .NET').click();
+    await this.page.getByText('Beginner’s course for .NET').first().click();
     await this.page.getByText('Add Entire Course').click();
 }
 async clickAddblockButtonForDay1(){
@@ -88,7 +88,7 @@ async clickAddblockButtonForDay1(){
 }
 async mapAssignmentToTheBlock(){
     await this.mapcontentIcon.click();
-    await this.page.getByText('24n assign1', { exact: true }).click();
+    await this.page.getByText('24n assign1', { exact: true }).first().click();
     //await this.page.getByText('Add Entire Course').click();
 }
 async clickAddblockButtonForDay2(){

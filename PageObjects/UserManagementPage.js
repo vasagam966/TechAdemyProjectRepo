@@ -90,6 +90,18 @@ class UserManagementPage {
         await this.assignJobRoleButton.click();
 
     }
+    async createALearner(useremail){
+        await this.clickOnboardingTab();
+        await this.enterEmail(useremail);
+        await this.enterFirstName("Test");
+        await this.enterLastName("Automation");
+        await this.selectRole("Learner");
+        await this.selectDepartment('Engineering');
+        await this.enterPassword("Test@123");
+        await this.clickCreateUserAccount();
+        await this.clickDone();
+        
+    }
 
 }
 module.exports = { UserManagementPage };

@@ -8,6 +8,8 @@ const {EnrollmentManagerPage} = require('./EnrollmentManagementPage')
 const{VirtualClassroomPage}= require('./VirtualClassroomPage');
 const{LearnerDashBoardPage}= require('./LearnerDashBoard');
 const {CoursesAndMappingHubPage}= require('./CoursesAndMappingHubPage');
+const {AIAssessmentsPage} =require('./AIAssessmentsPage');
+const {AssignmentPage}= require('./AssignmentPage');
 
 class POManager {
     constructor(page) {
@@ -22,6 +24,8 @@ class POManager {
         this.virtualClassroomPage = new VirtualClassroomPage(this.page);
         this.learnerDashBoard = new LearnerDashBoardPage(this.page);
         this.coursesAndMappingHubPage =new CoursesAndMappingHubPage(this.page);
+        this.aIassessmentPage = new AIAssessmentsPage(this.page);
+        this.assignmentPage = new AssignmentPage(this.page);
     }
     getSigninPage() {
         return this.signinPage;
@@ -52,6 +56,12 @@ class POManager {
     }
     getCoursesAndMappingHubPage(){
         return this.coursesAndMappingHubPage;
+    }
+    getAIAssessmentPage(){
+        return this.aIassessmentPage;
+    }
+    getAssignmentPage(){
+        return this.assignmentPage;
     }
 }
 module.exports = { POManager };

@@ -2,7 +2,7 @@ const {test,expect} = require('@playwright/test');
 const {POManager}=require('../PageObjects/POManager');
 import { faker } from '@faker-js/faker';
 const testdata=JSON.parse( JSON.stringify(require('../TestData/signInPageTestData.json')));
-
+const learner1 =faker.internet.email();
 
 
 test.beforeEach(async({page})=>{
@@ -13,6 +13,10 @@ test.beforeEach(async({page})=>{
     await signinPage.enterPassword(testdata.password);
     await signinPage.clickSignin();
     await expect(page).toHaveURL("https://skill-assist.ai/QapitolQA/dashboard");
+    const adminDashBoard=poManager.getAdminDashBoard();
+    const usermanagement= poManager.getUserManagementPage();
+    await adminDashBoard.clickUserManagementModule();
+    await usermanagement.createALearner(learner1);
     //await page.waitForTimeout(5000);
 });
 
@@ -22,6 +26,7 @@ const signinPage=poManager.getSigninPage();
 let adminDashBoard=poManager.getAdminDashBoard();
 let programmanagerPage= poManager.getProgramManagerPage();
 let enrollmentmanagerPage=poManager.getenrollmentManagementPage()
+await programmanagerPage.clickBackButton();
 adminDashBoard.clickProgramManagerModule();
 const programTitleTitle = `PlaywrightProgram${faker.datatype.number({ min: 100, max: 999 })}`;
 await programmanagerPage.clickCreateProgramButton();
@@ -59,12 +64,12 @@ await enrollmentmanagerPage.clickenrollLearnerstab();
 await enrollmentmanagerPage.clickPrograms();
 await enrollmentmanagerPage.searchProgram(programTitleTitle);
 await enrollmentmanagerPage.clickenrolllearnerToProgrambutton();
-await enrollmentmanagerPage.searchUsers(testdata.learneremail);
+await enrollmentmanagerPage.searchUsers(learner1);
 await enrollmentmanagerPage.clickCheckboxforuser();
 await enrollmentmanagerPage.clickenrollUserButton();
 await programmanagerPage.clickBackButton();
 await adminDashBoard.logoutAsAdmin();
-await signinPage.enterEmail(testdata.learneremail);
+await signinPage.enterEmail(learner1);
 await signinPage.enterPassword(testdata.learnerPassword);
 
 

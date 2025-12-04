@@ -61,7 +61,8 @@ async clickbatchesTab(){
     await this.batchesTab.click();
 }
 async searchusers(usermail){
-    await this.searchusersbox.fill(usermail);
+    await this.searchusersbox.clear();
+    await this.searchusersbox.pressSequentially(usermail);
 }
 async clickaddUserButton(usermail) 
     {

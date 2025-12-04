@@ -3,26 +3,29 @@ import { defineConfig } from '@playwright/test';
 
 export default defineConfig({
   testDir: './tests',
-  testMatch: ['**/*.spec.js', '**/*.Test.spec.js', '**/*.test.spec.js', '**/*_Test.spec.js'],
-  timeout: 40 * 1000,
-  retries: 2,
+  timeout: 100 * 1000,
+  retries: 1,
+  testMatch: ['**/*.spec.js', '**/*.test.spec.js'],
+
   expect: {
     timeout: 40 * 1000,
   },
 
-  // 🔹 Updated reporter — Allure added here
+  // 🔹 Updated reporter — Allure always enabled
   reporter: [
     ['list'],
     ['html'],
-    ['allure-playwright']
+    ['allure-playwright', { mode: 'on' }] // << important
   ],
 
   use: {
     browserName: 'chromium',
     headless: false,
-    screenshot: 'only-on-failure',
-    video: 'retain-on-failure',
-    trace: 'retain-on-failure',
+
+    // 🔹 Capture results even for passed tests
+    screenshot: 'on',
+    video: 'on',
+    trace: 'on', // You can switch to 'retain-on-failure' for size optimization
 
     viewport: null,
 
@@ -32,11 +35,12 @@ export default defineConfig({
         '--force-device-scale-factor=1'
       ]
     },
-
-    onPageCreated: async (page) => {
-      await page.evaluate(() => {
-        document.body.style.zoom = "0.7";
-      });
-    }
   },
+
+  // 🔹 Moved to correct position
+  onPageCreated: async (page) => {
+    await page.evaluate(() => {
+      document.body.style.zoom = '0.7';
+    });
+  }
 });
